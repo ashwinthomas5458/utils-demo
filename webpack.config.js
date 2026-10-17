@@ -8,9 +8,10 @@ const site = require('./src/content/site');
 
 // Public URL of the deployed page, with a trailing slash. Used for the
 // canonical link, Open Graph tags, JSON-LD, robots.txt and sitemap.xml.
-const SITE_URL = process.env.SITE_URL || 'https://example.com/';
-// Absolute URL of a 1200×630 share image. Leave empty to omit image tags.
-const OG_IMAGE = process.env.OG_IMAGE || '';
+const SITE_URL = process.env.SITE_URL || 'https://utils.ashwinthomas.in/';
+// Absolute URL of the 1200×630 share image. src/static/og.png is copied to the
+// site root (its source is src/og/og.html); set OG_IMAGE='' to omit image tags.
+const OG_IMAGE = process.env.OG_IMAGE ?? `${SITE_URL}og.png`;
 
 const LASTMOD = new Date().toISOString().slice(0, 10);
 
@@ -20,7 +21,7 @@ module.exports = (_env, argv) => {
   return {
     entry: { main: './src/js/main.js' },
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'out'),
       filename: prod ? '[name].[contenthash:8].js' : '[name].js',
       publicPath: './',
       clean: true,

@@ -7,7 +7,7 @@ const utils = require('@ashwinthomas/utils');
 const PACKAGE = '@ashwinthomas/utils';
 const NPM_URL = 'https://www.npmjs.com/package/@ashwinthomas/utils';
 const REPO_URL = 'https://github.com/ashwinthomas5458/utils';
-const AUTHOR_URL = 'https://github.com/ashwinthomas5458';
+const AUTHOR_URL = 'https://ashwinthomas.com';
 const AUTHOR_NPM_URL = 'https://www.npmjs.com/~ashwinthomas';
 
 // The root entry exposes one namespace per module. Order matches the README

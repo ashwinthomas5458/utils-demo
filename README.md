@@ -10,13 +10,22 @@ npm run build    # production build in dist/
 
 ## Build settings
 
-| Variable   | Default                | Used for                                                 |
-| ---------- | ---------------------- | -------------------------------------------------------- |
-| `SITE_URL` | `https://example.com/` | Canonical URL, Open Graph, JSON-LD, robots.txt, sitemap. Keep the trailing slash. |
-| `OG_IMAGE` | _(empty)_              | Absolute URL of a 1200×630 share image. Image tags are omitted while empty. |
+| Variable   | Default                           | Used for                                                 |
+| ---------- | --------------------------------- | -------------------------------------------------------- |
+| `SITE_URL` | `https://utils.ashwinthomas.in/`  | Canonical URL, Open Graph, JSON-LD, robots.txt, sitemap. Keep the trailing slash. |
+| `OG_IMAGE` | `${SITE_URL}og.png`               | Absolute URL of the 1200×630 share image. Set it to an empty string to omit the image tags. |
 
 ```bash
-SITE_URL=https://utils.example.dev/ OG_IMAGE=https://utils.example.dev/og.png npm run build
+SITE_URL=https://utils.example.dev/ npm run build
+```
+
+## Share image
+
+`src/static/og.png` (1200×630) is the Open Graph / Twitter image and is copied to the site root on build. Its source is `src/og/og.html`, which uses the same colors and fonts as the site. After changing it, regenerate the PNG from the project root:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+  --window-size=1200,630 --virtual-time-budget=8000 --screenshot=src/static/og.png src/og/og.html
 ```
 
 ## Customizing
