@@ -1,0 +1,606 @@
+/* Hero card ------------------------------------------------------------ */
+.a-hero-card {
+  position: relative;
+  min-height: min(560px, 120vw);
+}
+
+.a-hero-card-panel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius-hero);
+  background: var(--color-slate);
+  color: var(--color-on-slate);
+  container-type: inline-size;
+}
+
+/*
+ * One coordinate system: both axes start at the origin (--ox, --oy) and the
+ * grid is anchored there, so every grid line is a whole number of cells from
+ * each axis. --unit is the distance from 0 to 1 on the x axis.
+ * cqw resolves against the panel, so the plot scales with the card.
+ */
+.a-hero-card-plot {
+  /* Whole pixels keep 1px grid lines crisp at every card width. */
+  --ox: min(96px, round(down, 22cqw, 1px));
+  --oy: 150px;
+  --cell: min(56px, round(down, 9cqw, 1px));
+  --unit: calc(var(--cell) * 5);
+  --ball: min(170px, 38cqw);
+  --cap: 26px;
+  position: absolute;
+  inset: 0;
+}
+
+.a-hero-card-grid {
+  position: absolute;
+  left: var(--ox);
+  bottom: var(--oy);
+  display: grid;
+  grid-template-columns: repeat(7, var(--cell));
+  grid-auto-rows: var(--cell);
+}
+
+/* Each cell draws its top and right edge; the axes are the left and bottom. */
+.a-hero-card-grid span {
+  padding: 5px;
+  border-top: 1px solid var(--color-mustard);
+  border-right: 1px solid var(--color-mustard);
+  color: var(--color-ink);
+  font: 500 10px / 1.1 var(--font-mono);
+  white-space: nowrap;
+}
+
+/* --e is the eased value, written by HeroDemo; the centre sits at x = e. */
+.a-hero-card-ball {
+  --e: 0;
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--oy) - var(--ball) / 2);
+  width: var(--ball);
+  height: var(--ball);
+  border-radius: 50%;
+  background: var(--color-accent);
+  transform: translateX(calc(var(--ox) + var(--e) * var(--unit) - 50%));
+  will-change: transform;
+}
+
+.a-hero-card-axis-y {
+  position: absolute;
+  left: calc(var(--ox) - var(--cap) / 2);
+  top: 28px;
+  bottom: var(--oy);
+  width: var(--cap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.a-hero-card-axis-y::after {
+  content: "";
+  flex: 1;
+  width: var(--border-w);
+  background: var(--color-on-slate);
+}
+
+.a-hero-card-axis-x {
+  position: absolute;
+  left: var(--ox);
+  right: 28px;
+  bottom: calc(var(--oy) - var(--cap) / 2);
+  height: var(--cap);
+  display: flex;
+  align-items: center;
+}
+
+.a-hero-card-axis-x::before {
+  content: "";
+  flex: 1;
+  height: var(--border-w);
+  background: var(--color-on-slate);
+}
+
+.a-hero-card-origin {
+  position: absolute;
+  left: calc(var(--ox) - 4px);
+  bottom: calc(var(--oy) - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-on-slate);
+}
+
+.a-hero-card-tick {
+  position: absolute;
+  left: calc(var(--ox) + var(--unit) - var(--border-w) / 2);
+  bottom: calc(var(--oy) - 6px);
+  width: var(--border-w);
+  height: 12px;
+  background: var(--color-on-slate);
+}
+
+.a-hero-card-label {
+  position: absolute;
+  font: 500 11px / 1 var(--font-mono);
+}
+
+.a-hero-card-label-y {
+  left: calc(var(--ox) - var(--cap) / 2 - 16px);
+  top: 36px;
+}
+
+.a-hero-card-label-x {
+  right: calc(28px + var(--cap) / 2);
+  bottom: calc(var(--oy) + 20px);
+  transform: translateX(50%);
+}
+
+.a-hero-card-label-zero {
+  left: calc(var(--ox) - 16px);
+  bottom: calc(var(--oy) - 22px);
+}
+
+.a-hero-card-label-one {
+  left: calc(var(--ox) + var(--unit));
+  bottom: calc(var(--oy) - 24px);
+  transform: translateX(-50%);
+}
+
+.a-hero-card-caption {
+  position: absolute;
+  left: calc(var(--ox) + var(--cap));
+  top: 30px;
+  max-width: 200px;
+  font-size: var(--fs-micro);
+  line-height: 1.2;
+}
+
+.a-hero-card-tag {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.3em;
+}
+
+.a-hero-card-readout {
+  position: absolute;
+  left: var(--ox);
+  bottom: 36px;
+  font: 500 var(--fs-code) var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.a-hero-card-barcode {
+  position: absolute;
+  right: 36px;
+  bottom: 32px;
+  width: 96px;
+  height: 36px;
+  background: repeating-linear-gradient(90deg, var(--color-on-slate) 0 2px, transparent 2px 4px, var(--color-on-slate) 4px 5px, transparent 5px 8px, var(--color-on-slate) 8px 11px, transparent 11px 13px);
+}
+
+@container (max-width: 420px) {
+  .a-hero-card-barcode,
+  .a-hero-card-tag {
+    display: none;
+  }
+}
+
+.a-hero-card-corner {
+  position: absolute;
+  right: -14px;
+  top: -14px;
+  width: 112px;
+  height: 112px;
+  border: 14px solid var(--color-paper);
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* SVG plots ------------------------------------------------------------ */
+.a-plot {
+  width: 100%;
+  height: auto;
+}
+
+.a-plot-dial {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.a-plot-axis {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+.a-plot-axis-faint {
+  stroke-width: 0.75;
+  opacity: 0.3;
+}
+
+.a-plot-band {
+  fill: var(--color-slate);
+  opacity: 0.35;
+}
+
+.a-plot-grid {
+  fill: none;
+  stroke: var(--color-mustard);
+  stroke-width: 1;
+}
+
+.a-plot-line {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.a-plot-line-bold {
+  stroke-width: 2.5;
+}
+
+.a-plot-marker {
+  stroke: var(--color-accent);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.a-plot-dot {
+  fill: var(--color-accent);
+}
+
+.a-plot-disc {
+  fill: color-mix(in srgb, var(--color-slate) 35%, transparent);
+  stroke: var(--color-ink);
+  stroke-width: 1;
+}
+
+.a-plot-ray {
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+
+.a-plot-ray-dashed {
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  opacity: 0.6;
+}
+
+.a-plot-ray-accent {
+  stroke: var(--color-accent);
+  stroke-width: 3;
+}
+
+.a-plot-label {
+  fill: var(--color-ink);
+  font: 600 var(--fs-micro) var(--font-mono);
+  text-anchor: middle;
+}
+
+.a-plot-pivot {
+  fill: var(--color-ink);
+}
+
+/* Random histogram ----------------------------------------------------- */
+.a-hist {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 180px;
+  border-bottom: var(--border-w) solid var(--color-ink);
+}
+
+.a-hist li {
+  --h: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-1);
+  height: 100%;
+  min-width: 0;
+}
+
+.a-hist-count {
+  font: 500 10px var(--font-mono);
+}
+
+.a-hist-bar {
+  width: 100%;
+  height: calc(var(--h) * 1%);
+  border-radius: 6px 6px 0 0;
+  background: var(--color-accent);
+  transition: height 0.25s var(--ease-ui);
+}
+
+.a-hist-labels {
+  display: flex;
+  gap: 6px;
+  margin-top: calc(-1 * var(--space-2));
+  font: 500 10px var(--font-mono);
+  color: var(--color-muted);
+}
+
+.a-hist-labels span {
+  flex: 1;
+  text-align: center;
+}
+
+/* Tracks (damp, easing) ------------------------------------------------ */
+.a-track {
+  position: relative;
+  border-radius: var(--radius-pill);
+}
+
+.a-track-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  container-type: inline-size;
+}
+
+.a-track-damp {
+  height: 76px;
+  border: var(--border-w) solid var(--color-ink);
+  background: var(--color-paper);
+}
+
+.a-track-damp .a-track-area {
+  --target: 80;
+  --x: 10;
+  left: 38px;
+  right: 38px;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.a-track-damp .a-track-area:focus-visible {
+  outline-offset: 8px;
+}
+
+.a-track-target {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: calc(var(--target) * 1%);
+  width: var(--border-w);
+  background: var(--color-accent);
+}
+
+.a-track-ball {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  pointer-events: none;
+  transform: translateX(calc(var(--x) * 1cqw - 50%));
+  will-change: transform;
+}
+
+.a-track-ease {
+  height: 40px;
+  background: var(--color-slate);
+}
+
+.a-track-ease .a-track-area {
+  --x: 10;
+  left: 20px;
+  right: 20px;
+}
+
+.a-track-block {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--color-accent);
+  transform: translateX(calc(var(--x) * 1cqw - 50%));
+  will-change: transform;
+}
+
+/* Vector pad ----------------------------------------------------------- */
+.a-pad {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: var(--radius-plot);
+  background: var(--color-slate);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.a-pad-grid {
+  stroke: var(--color-mustard);
+  stroke-width: 1;
+  opacity: 0.8;
+}
+
+.a-pad-seg {
+  stroke: var(--color-ink);
+  stroke-width: 2.5;
+}
+
+.a-pad-seg-accent {
+  stroke: var(--color-accent);
+}
+
+.a-pad-normal {
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 2;
+}
+
+.a-pad-mid {
+  fill: var(--color-paper);
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+}
+
+.a-pad-ix {
+  fill: var(--color-paper);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+
+.a-pad-ix[hidden] {
+  display: none;
+}
+
+.a-pad-point {
+  cursor: grab;
+  outline: none;
+}
+
+.a-pad-point circle {
+  fill: var(--color-ink);
+  transition: r var(--dur-ui) var(--ease-ui);
+}
+
+.a-pad-point-accent circle {
+  fill: var(--color-accent);
+}
+
+.a-pad-point text {
+  fill: var(--color-accent-contrast);
+  font: 600 9px var(--font-mono);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.a-pad-point:hover circle,
+.a-pad-point.a-is-dragging circle {
+  r: 13px;
+}
+
+.a-pad-point:focus-visible circle {
+  stroke: var(--color-paper);
+  stroke-width: 3;
+  r: 13px;
+}
+
+.a-pad-point.a-is-dragging {
+  cursor: grabbing;
+}
+
+/* Vector pad --------------------------------------------------------- */
+.a-vec-axis {
+  stroke: var(--color-on-slate);
+  stroke-width: var(--border-w);
+}
+
+.a-vec-unit {
+  fill: none;
+  stroke: var(--color-on-slate);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.a-vec-unit-dot {
+  fill: var(--color-on-slate);
+}
+
+/* Dashed sides that complete the a + b parallelogram. */
+.a-vec-guide {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 3;
+  opacity: 0.55;
+}
+
+.a-vec-sum {
+  stroke: var(--color-on-slate);
+  stroke-width: 2.5;
+}
+
+.a-vec-head {
+  fill: var(--color-on-slate);
+}
+
+.a-vec-arrow {
+  stroke: var(--color-ink);
+  stroke-width: 2.5;
+}
+
+.a-vec-arrow-accent {
+  stroke: var(--color-accent);
+}
+
+.a-vec-label {
+  fill: var(--color-on-slate);
+  font: 600 11px var(--font-mono);
+  text-anchor: middle;
+}
+
+/* Color ---------------------------------------------------------------- */
+.a-color-input {
+  width: 100%;
+  height: 36px;
+  padding: 0;
+  border: var(--border-w) solid var(--color-ink);
+  border-radius: var(--radius-code);
+  background: none;
+  cursor: pointer;
+}
+
+.a-color-input::-webkit-color-swatch-wrapper {
+  padding: 3px;
+}
+
+.a-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: calc(var(--radius-code) - 4px);
+}
+
+.a-color-input::-moz-color-swatch {
+  border: none;
+  border-radius: calc(var(--radius-code) - 4px);
+}
+
+/* Fills are SVG attributes written by ColorDemo; these only frame them. */
+.a-swatch-frame,
+.a-swatch-outline {
+  stroke: var(--color-ink);
+  stroke-width: 1;
+}
+
+.a-swatch-outline {
+  fill: none;
+}
+
+.a-swatch-sample {
+  font: 500 64px var(--font-sans);
+  letter-spacing: -0.03em;
+  text-anchor: middle;
+}
+
+.a-swatch-label {
+  fill: var(--color-ink);
+  font: 500 11px var(--font-mono);
+}
+
+.a-swatch-marker {
+  stroke: var(--color-card);
+  stroke-width: 3;
+}
+
+/* Marks the unmodified color a in the middle of the ramp. */
+.a-swatch-base {
+  fill: none;
+  stroke: var(--color-card);
+  stroke-width: 2;
+}

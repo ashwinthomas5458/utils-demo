@@ -1,0 +1,1224 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%- meta.title %></title>
+  <meta name="description" content="<%- meta.description %>">
+  <meta name="keywords" content="<%- meta.keywords %>">
+  <meta name="author" content="<%- meta.author %>">
+  <meta name="application-name" content="<%- meta.siteName %>">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="theme-color" content="<%= meta.themeColor %>">
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="canonical" href="<%= SITE_URL %>">
+  <link rel="icon" href="favicon.ico">
+  <link rel="author" href="<%= AUTHOR_URL %>">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="<%- meta.siteName %>">
+  <meta property="og:title" content="<%- meta.socialTitle %>">
+  <meta property="og:description" content="<%- meta.socialDescription %>">
+  <meta property="og:url" content="<%= SITE_URL %>">
+  <meta property="og:locale" content="en_US">
+  <% if (OG_IMAGE) { %>
+    <meta property="og:image" content="<%= OG_IMAGE %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Utils Playground: interactive demos for @ashwinthomas/utils">
+    <% } %>
+      <meta name="twitter:card" content="<%= OG_IMAGE ? 'summary_large_image' : 'summary' %>">
+      <meta name="twitter:title" content="<%- meta.socialTitle %>">
+      <meta name="twitter:description" content="<%- meta.socialDescription %>">
+      <% if (OG_IMAGE) { %>
+        <meta name="twitter:image" content="<%= OG_IMAGE %>">
+        <meta name="twitter:image:alt" content="Utils Playground: interactive demos for @ashwinthomas/utils">
+        <% } %>
+
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <!-- Fonts load without blocking first paint; system fallbacks show until they swap in. -->
+          <link rel="preload" as="style"
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+            onload="this.onload=null;this.rel='stylesheet'">
+          <noscript>
+            <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+          </noscript>
+
+          <script type="application/ld+json"><%= jsonLd %></script>
+</head>
+
+<body>
+  <a class="a-skip-link" href="#play">Skip to playground</a>
+
+  <div class="a-shell">
+    <aside class="a-sidebar">
+      <a class="a-badge" href="#main" aria-label="Back to top">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true" focusable="false">
+          <path d="M4.01967 8.94333C4.22154 8.68187 4.44003 8.44463 4.67504 8.23145L4.01967 8.94333Z" fill="#004FB8"
+            fill-opacity="0.5" />
+          <path
+            d="M2.93364 11.053L6.54774 7.12697C6.89307 7.01028 7.25208 6.93025 7.6247 6.88697L2.64589 12.2954C2.71423 11.8592 2.8101 11.445 2.93364 11.053Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M2.53711 13.3434C2.52504 13.5631 2.51904 13.7875 2.51904 14.0169C2.51904 14.1086 2.52004 14.1995 2.52196 14.2898L9.29407 6.93332C9.04522 6.8885 8.78469 6.86152 8.51262 6.85229L2.53711 13.3434Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M9.98419 7.11344L2.57301 15.1642C2.60007 15.4414 2.63728 15.711 2.68463 15.9727L10.5914 7.38366C10.3992 7.27788 10.1968 7.18786 9.98419 7.11344Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M11.1319 7.72645L2.85322 16.7194C2.91788 16.9561 2.99199 17.1856 3.0754 17.4079L11.602 8.14558C11.4587 7.99383 11.3021 7.85415 11.1319 7.72645Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M11.9972 8.6462C12.0576 8.73822 12.1143 8.83355 12.1675 8.93218V8.46116L13.492 7.02227H14.3481L10.0777 11.6611C9.50771 11.6737 9.03853 11.8802 8.67022 12.2806C8.32696 12.6537 8.13862 13.1614 8.10518 13.8038L3.67718 18.6139C3.56164 18.4313 3.45278 18.2397 3.35061 18.0389L11.9972 8.6462Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M4.04865 19.1402C4.18095 19.3084 4.32033 19.467 4.4667 19.616L8.38916 15.355C8.28238 15.1546 8.20512 14.9286 8.15745 14.6768L4.04865 19.1402Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M10.8319 11.7717C11.0377 11.8431 11.2256 11.9489 11.3956 12.0892L16.06 7.02227H15.204L10.8319 11.7717Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M16.916 7.02227L11.8131 12.5655C11.9302 12.7545 12.0184 12.9686 12.0774 13.2082L17.649 7.15596V7.02227H16.916Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M17.649 8.08577L12.1674 14.0403C12.1649 14.49 12.0924 14.8788 11.9498 15.2066L17.649 9.01559V8.08577Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M17.649 9.94541L7.36855 21.1129C7.62555 21.154 7.88931 21.1774 8.15968 21.1834L17.649 10.8753V9.94541Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M17.649 11.8051L9.05629 21.1393C9.45274 21.0895 9.82136 20.999 10.1622 20.8677L17.649 12.7349V11.8051Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M17.649 13.6648L12.1675 19.6194V20.5492L17.649 14.5947V13.6648Z" fill="#004FB8" fill-opacity="0.5" />
+          <path d="M17.649 15.5245L12.598 21.0114H13.454L17.649 16.4544V15.5245Z" fill="#004FB8" fill-opacity="0.5" />
+          <path d="M17.649 17.3843L14.3099 21.0114H15.166L17.649 18.3142V17.3843Z" fill="#004FB8" fill-opacity="0.5" />
+          <path d="M17.649 19.244L16.022 21.0114H16.878L17.649 20.1738V19.244Z" fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M19.6984 18.8774C19.7311 19.1303 19.7981 19.3674 19.8995 19.5888L23.4005 15.7856C23.2245 15.7639 23.041 15.753 22.85 15.753C22.7538 15.753 22.6596 15.7557 22.5673 15.761L19.6984 18.8774Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M21.5274 15.9607L19.7356 17.9072C19.848 17.3776 20.1172 16.9241 20.5432 16.5468C20.826 16.2883 21.154 16.093 21.5274 15.9607Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M24.1095 15.9454L20.2488 20.1392C20.3368 20.2444 20.4349 20.3449 20.5432 20.4409C20.5956 20.4872 20.6495 20.5315 20.7049 20.5736L24.7073 16.2259C24.5222 16.1117 24.323 16.0182 24.1095 15.9454Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M25.2056 16.6144L21.2584 20.9022C21.4626 20.9944 21.6821 21.0658 21.9171 21.1165L25.612 17.1028C25.5005 16.9284 25.365 16.7656 25.2056 16.6144Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M25.8941 17.7262L22.6894 21.2073C22.7423 21.2089 22.7958 21.2098 22.85 21.2098C23.1138 21.2098 23.3633 21.1896 23.5987 21.1495L25.9997 18.5412C25.9999 18.5296 26 18.5179 26 18.5062C26 18.2291 25.9647 17.9691 25.8941 17.7262Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M25.6013 19.9039L25.0217 20.5336C25.0592 20.5037 25.0958 20.4728 25.1318 20.4409C25.3184 20.2757 25.4748 20.0966 25.6013 19.9039Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M6.66198 20.9506L11.0741 16.1577C10.7979 16.3013 10.4845 16.3731 10.1336 16.3731C10.096 16.3731 10.0589 16.3723 10.0222 16.3706L6.02614 20.7115C6.23278 20.8051 6.44473 20.8848 6.66198 20.9506Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M5.45072 20.4067L9.31075 16.2136C9.11602 16.1296 8.93852 16.0125 8.77823 15.8622L4.93303 20.0392C5.06611 20.1466 5.20395 20.2474 5.34663 20.3416C5.38114 20.3638 5.41589 20.3854 5.45072 20.4067Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M12.6361 7.02227L12.1675 7.53134V7.02227H12.6361Z" fill="#004FB8" fill-opacity="0.5" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M6.55424 5.88321C5.60848 5.88321 4.77429 6.13136 4.02978 6.62302L4.0255 6.62585L4.02118 6.62862C3.28668 7.09982 2.68228 7.80443 2.22188 8.78371C1.78349 9.73461 1.5502 10.8913 1.5502 12.2762C1.5502 13.6588 1.7827 14.8244 2.22189 15.7936C2.68087 16.7534 3.28547 17.4616 4.02551 17.9515C4.76974 18.4277 5.60561 18.6693 6.55424 18.6693C7.35645 18.6693 8.00601 18.51 8.53061 18.2231C9.06912 17.912 9.4663 17.5038 9.74109 16.9934L11.1986 17.3609V18.4957H15.13L15.13 6.05683H11.1986V7.19158L9.74109 7.55906C9.4669 7.04985 9.07182 6.65188 8.53701 6.35774L8.53056 6.35419L8.52418 6.35052C8.00104 6.04972 7.3542 5.88321 6.55424 5.88321ZM9.64844 5.22077V4.50663L16.6802 4.50663L16.6802 20.0459H9.64844V19.3493C9.53546 19.4271 9.41826 19.5009 9.29691 19.5707L9.29053 19.5743L9.28408 19.5779C8.48696 20.0163 7.56767 20.2195 6.55424 20.2195C5.32203 20.2195 4.19157 19.8998 3.18413 19.2535L3.17981 19.2507L3.17552 19.2479C2.16644 18.5815 1.38456 17.639 0.81959 16.4544L0.816522 16.448L0.813573 16.4415C0.262534 15.2292 1.71713e-09 13.834 1.71713e-09 12.2762C1.71713e-09 10.719 0.262389 9.33001 0.815438 8.13173L0.817616 8.12702C1.38147 6.92654 2.16427 5.97936 3.17979 5.32661C4.18698 4.66267 5.31905 4.33301 6.55424 4.33301C7.57047 4.33301 8.49229 4.54568 9.29052 5.00297C9.41416 5.07121 9.53349 5.14382 9.64844 5.22077ZM6.35587 10.0152C6.89254 9.43189 7.59219 9.14484 8.38968 9.14484C9.18716 9.14484 9.88682 9.43189 10.4235 10.0152C10.9734 10.613 11.1986 11.4023 11.1986 12.2762C11.1986 13.1502 10.9734 13.9395 10.4235 14.5373C9.88682 15.1206 9.18716 15.4077 8.38968 15.4077C7.59219 15.4077 6.89254 15.1206 6.35587 14.5373C5.80592 13.9395 5.58071 13.1502 5.58071 12.2762C5.58071 11.4023 5.80592 10.613 6.35587 10.0152ZM8.38968 10.695C7.99661 10.695 7.72067 10.8214 7.49671 11.0648C7.28602 11.2938 7.13091 11.662 7.13091 12.2762C7.13091 12.8905 7.28602 13.2587 7.49671 13.4877C7.72067 13.7311 7.99661 13.8575 8.38968 13.8575C8.78275 13.8575 9.05869 13.7311 9.28265 13.4877C9.49334 13.2587 9.64844 12.8905 9.64844 12.2762C9.64844 11.662 9.49334 11.2938 9.28265 11.0648C9.05869 10.8214 8.78275 10.695 8.38968 10.695ZM21.106 14.7876C20.2952 14.7876 19.7279 15.0074 19.3223 15.3782L19.3178 15.3824L19.3132 15.3864C18.9056 15.7475 18.7063 16.1871 18.7063 16.7656C18.7063 17.3223 18.9016 17.7555 19.3132 18.1201C19.7184 18.4789 20.2889 18.6941 21.106 18.6941C21.9026 18.6941 22.4664 18.481 22.874 18.1201C23.2856 17.7555 23.4809 17.3223 23.4809 16.7656C23.4809 16.1871 23.2816 15.7475 22.874 15.3864L22.8694 15.3824L22.8649 15.3782C22.4568 15.0051 21.8962 14.7876 21.106 14.7876ZM18.2808 14.23C19.0321 13.5455 20.0009 13.2374 21.106 13.2374C22.1986 13.2374 23.1576 13.5477 23.9064 14.23C24.6532 14.8936 25.0311 15.7588 25.0311 16.7656C25.0311 17.7633 24.6476 18.6199 23.9018 19.2805C23.1519 19.9447 22.1945 20.2443 21.106 20.2443C20.0049 20.2443 19.0377 19.9469 18.2854 19.2805C17.5395 18.6199 17.1561 17.7633 17.1561 16.7656C17.1561 15.7588 17.534 14.8936 18.2808 14.23Z"
+            fill="#004FB8" />
+        </svg>
+      </a>
+      <nav class="a-sidebar-panel" aria-label="Module index" data-section-nav>
+        <ul class="a-sidebar-nav">
+          <li><a href="#math">Math</a></li>
+          <li><a href="#random">Random</a></li>
+          <li><a href="#motion">Motion</a></li>
+          <li><a href="#easing">Easing</a></li>
+          <li><a href="#angle">Angle</a></li>
+          <li><a href="#vector">Vector</a></li>
+          <li><a href="#geometry">Geometry</a></li>
+          <li><a href="#color">Color</a></li>
+        </ul>
+      </nav>
+      <span class="a-badge" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true" focusable="false">
+          <path
+            d="M23.4786 11.2529C23.4805 11.3432 23.4815 11.4347 23.4815 11.5264C23.4815 11.7555 23.475 11.9798 23.463 12.1992L17.4874 18.6904C17.2154 18.6812 16.9549 18.6542 16.7061 18.6094L23.4786 11.2529Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M23.3546 13.2471C23.2862 13.6833 23.19 14.0982 23.0665 14.4902L19.4522 18.416C19.1069 18.5327 18.7476 18.613 18.3751 18.6562L23.3546 13.2471Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M13.9229 12.335C13.9819 12.5743 14.0695 12.7887 14.1866 12.9775L9.08405 18.5205H8.35163V18.3867L13.9229 12.335Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M14.6046 13.4541C14.7745 13.5943 14.9623 13.7001 15.168 13.7715L10.796 18.5205H9.9405L14.6046 13.4541Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M22.4913 7.20996C22.5456 7.30569 22.5985 7.40362 22.6495 7.50391L14.003 16.8965L13.8331 16.6104V17.082L12.5079 18.5205H11.6524L15.9229 13.8818C16.4926 13.8691 16.9619 13.6629 17.3301 13.2627C17.6734 12.8896 17.8611 12.3816 17.8946 11.7393L22.3233 6.92871L22.4913 7.20996Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M13.8331 18.0117V18.5205H13.3643L13.8331 18.0117Z" fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M23.3155 9.57031C23.3628 9.83198 23.3998 10.1016 23.4268 10.3789L16.0157 18.4297C15.8031 18.3553 15.6004 18.2649 15.4083 18.1592L23.3155 9.57031Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M22.9249 8.13477C23.0082 8.35698 23.0819 8.58667 23.1466 8.82324L14.8682 17.8164C14.6981 17.6888 14.5417 17.5491 14.3985 17.3975L22.9249 8.13477Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M14.0508 10.3359C13.9082 10.6637 13.8355 11.0532 13.8331 11.5029L8.35163 17.457V16.5273L14.0508 10.3359Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M17.8409 4.35938C18.1111 4.36539 18.375 4.38866 18.6319 4.42969L8.35163 15.5977V14.668L17.8409 4.35938Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M16.9434 4.40332L8.35163 13.7383V12.8076L15.838 4.6748C16.1787 4.54358 16.5472 4.45314 16.9434 4.40332Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M13.8331 4.99414V5.92383L8.35163 11.8779V10.9482L13.8331 4.99414Z" fill="#004FB8"
+            fill-opacity="0.5" />
+          <path
+            d="M21.5333 5.92676C21.6795 6.07563 21.819 6.23428 21.9512 6.40234L17.8428 10.8662C17.7952 10.6144 17.7182 10.3879 17.6114 10.1875L21.5333 5.92676Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M8.35163 10.0186V9.08887L12.546 4.53125H13.4024L8.35163 10.0186Z" fill="#004FB8"
+            fill-opacity="0.5" />
+          <path
+            d="M6.10065 5.9541C6.20205 6.17551 6.26915 6.41317 6.30183 6.66602L3.43268 9.78223C3.3405 9.78752 3.24647 9.79003 3.15046 9.79004C2.95947 9.79004 2.77568 9.77956 2.59968 9.75781L6.10065 5.9541Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M20.5499 5.13672C20.5845 5.15787 20.6191 5.17918 20.6534 5.20117C20.7961 5.29542 20.9344 5.39651 21.0674 5.50391L17.2217 9.68066C17.0615 9.53044 16.8842 9.41303 16.6895 9.3291L20.5499 5.13672Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M5.29499 4.96973C5.35041 5.01185 5.40475 5.05619 5.4571 5.10254C5.56515 5.19827 5.6632 5.29841 5.75104 5.40332L1.89069 9.59766C1.67731 9.52489 1.478 9.43154 1.29304 9.31738L5.29499 4.96973Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M6.26472 7.63574C6.15234 8.16528 5.88298 8.61881 5.4571 8.99609C5.17436 9.25454 4.8461 9.4498 4.47272 9.58203L6.26472 7.63574Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M19.338 4.59277C19.5551 4.65854 19.7672 4.73757 19.9737 4.83105L15.9776 9.17188C15.941 9.17027 15.9037 9.16992 15.8663 9.16992C15.5155 9.16995 15.202 9.24217 14.9258 9.38574L19.338 4.59277Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path
+            d="M4.08308 4.42676C4.31781 4.47746 4.53724 4.54856 4.74128 4.64062L0.794989 8.92871C0.635553 8.77758 0.499231 8.61486 0.387763 8.44043L4.08308 4.42676Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M8.35163 8.15918V7.22852L10.8341 4.53125H11.6905L8.35163 8.15918Z" fill="#004FB8"
+            fill-opacity="0.5" />
+          <path
+            d="M3.15046 4.33301C3.20446 4.33301 3.25784 4.33433 3.31061 4.33594L0.106513 7.81641C0.036007 7.57371 9.58232e-05 7.31405 6.74081e-05 7.03711C6.74091e-05 7.0255 -8.42568e-05 7.01356 6.74081e-05 7.00195L2.40143 4.39355C2.63675 4.35343 2.88662 4.33301 3.15046 4.33301Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path d="M8.35163 6.29883V5.36914L9.12214 4.53125H9.97761L8.35163 6.29883Z" fill="#004FB8"
+            fill-opacity="0.5" />
+          <path
+            d="M0.978583 5.00977L0.398505 5.63867C0.52489 5.44609 0.681815 5.26764 0.868231 5.10254C0.904183 5.07066 0.941173 5.03965 0.978583 5.00977Z"
+            fill="#004FB8" fill-opacity="0.5" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M17.6104 10.1357C18.4078 10.1357 19.1079 10.4225 19.6445 11.0059C20.1943 11.6036 20.4189 12.3928 20.4189 13.2666C20.4189 14.1404 20.1942 14.9296 19.6445 15.5273C19.1079 16.1107 18.4078 16.3984 17.6104 16.3984C16.8129 16.3984 16.1128 16.1107 15.5762 15.5273C15.0265 14.9296 14.8018 14.1404 14.8018 13.2666C14.8018 12.3928 15.0264 11.6036 15.5762 11.0059C16.1128 10.4225 16.8129 10.1357 17.6104 10.1357ZM17.6104 11.6855C17.2173 11.6855 16.9417 11.8122 16.7178 12.0557C16.5071 12.2847 16.3516 12.6524 16.3516 13.2666C16.3516 13.8808 16.5071 14.2495 16.7178 14.4785C16.9417 14.7217 17.2175 14.8477 17.6104 14.8477C18.0032 14.8476 18.279 14.7217 18.5029 14.4785C18.7136 14.2495 18.8691 13.8808 18.8691 13.2666C18.8691 12.6525 18.7136 12.2847 18.5029 12.0557C18.279 11.8122 18.0034 11.6856 17.6104 11.6855Z"
+            fill="#004FB8" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M19.4453 5.32324C20.6773 5.32324 21.8081 5.643 22.8154 6.28906L22.8203 6.29199L22.8242 6.29492C23.8333 6.96131 24.6157 7.90425 25.1807 9.08887L25.1836 9.09473L25.1865 9.10156C25.7375 10.3138 26 11.709 26 13.2666C26 14.8238 25.7376 16.2129 25.1846 17.4111L25.1826 17.416C24.6188 18.6165 23.8358 19.5641 22.8203 20.2168C21.8132 20.8807 20.6804 21.21 19.4453 21.21C18.4294 21.2099 17.508 20.9971 16.71 20.54C16.5863 20.4718 16.4665 20.3992 16.3516 20.3223V21.0361H9.32031V5.49707H16.3516V6.19336C16.4645 6.11563 16.5819 6.04238 16.7031 5.97266L16.709 5.96875L16.7158 5.96484C17.5128 5.5265 18.4321 5.3233 19.4453 5.32324ZM19.4453 6.87402C18.6434 6.87408 17.9942 7.03346 17.4697 7.32031C16.9312 7.63137 16.5336 8.03947 16.2588 8.5498L14.8018 8.18164V7.04688H10.8701V19.4863H14.8018V18.3516L16.2588 17.9844C16.533 18.4934 16.9282 18.8915 17.4629 19.1855L17.4697 19.1885L17.4756 19.1924C17.9986 19.4931 18.6456 19.6601 19.4453 19.6602C20.3911 19.6602 21.2262 19.4116 21.9707 18.9199L21.9785 18.9141C22.713 18.4429 23.3179 17.7381 23.7783 16.7588C24.2166 15.808 24.4502 14.6513 24.4502 13.2666C24.4502 11.8841 24.2175 10.7181 23.7783 9.74902C23.3194 8.78937 22.7145 8.08165 21.9746 7.5918C21.3233 7.17498 20.6017 6.93746 19.7959 6.88477L19.4453 6.87402Z"
+            fill="#004FB8" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.89355 5.29883C5.99461 5.29883 6.9625 5.59634 7.71484 6.2627C8.46052 6.92326 8.84375 7.77974 8.84375 8.77734C8.84375 9.78414 8.46557 10.6499 7.71875 11.3135C6.9676 11.9977 5.99842 12.3057 4.89355 12.3057C3.80126 12.3056 2.84233 11.9955 2.09375 11.3135C1.34693 10.6499 0.968753 9.78413 0.96875 8.77734C0.96875 7.77963 1.3528 6.92329 2.09863 6.2627C2.84844 5.59865 3.80532 5.29891 4.89355 5.29883ZM4.89355 6.84863C4.09723 6.84871 3.53346 7.06194 3.12598 7.42285C2.71433 7.78745 2.51953 8.22072 2.51953 8.77734C2.51953 9.35583 2.71844 9.79521 3.12598 10.1562L3.13086 10.1602L3.13477 10.165C3.54279 10.5381 4.10359 10.7558 4.89355 10.7559C5.70426 10.7559 6.27211 10.5358 6.67773 10.165L6.68652 10.1562C7.09418 9.79518 7.29394 9.35591 7.29395 8.77734C7.29395 8.22072 7.09817 7.78745 6.68652 7.42285C6.28139 7.0641 5.7105 6.84863 4.89355 6.84863Z"
+            fill="#004FB8" />
+        </svg>
+      </span>
+    </aside>
+
+    <main class="a-main" id="main">
+      <header class="a-topbar">
+        <ul class="a-topbar-stats">
+          <li>@ashwinthomas/utils</li>
+        </ul>
+        <a class="a-topbar-cta" href="<%= NPM_URL %>">
+          npm
+          <span class="a-circle-arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 16H27" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M18 7L27 16L18 25" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+        </a>
+      </header>
+
+      <!-- Hero -->
+      <section class="a-hero" aria-labelledby="hero-title">
+        <div class="a-hero-copy">
+          <div class="a-hero-intro">
+            <span class="a-vertical-label" aria-hidden="true">Pure functions</span>
+            <p class="a-hero-lede">Small, pure TypeScript functions for the everyday math in UI and graphics
+              code: interpolation, easing, smoothing, seeded randomness, angles, 2D vectors, geometry and colors. No
+              runtime dependencies. Works with ESM, CommonJS and TypeScript, and subpath imports keep your bundle
+              small.</p>
+          </div>
+          <div class="a-hero-spacer"></div>
+          <h1 class="a-hero-title" id="hero-title">
+            <span class="a-hero-eyebrow"><%- PACKAGE %></span>
+            <span class="a-hero-line">Utils<span class="a-hero-bars" aria-hidden="true"><i></i><i></i></span></span>
+            <span class="a-hero-line a-hero-line-end">Playground</span>
+          </h1>
+          <nav aria-label="Modules">
+            <ul class="a-pills">
+              <li><a class="a-pill" href="#math">Math</a></li>
+              <li><a class="a-pill" href="#random">Random</a></li>
+              <li><a class="a-pill" href="#motion">Motion</a></li>
+              <li><a class="a-pill" href="#easing">Easing</a></li>
+              <li><a class="a-pill" href="#angle">Angle</a></li>
+              <li><a class="a-pill" href="#vector">Vector</a></li>
+              <li><a class="a-pill" href="#geometry">Geometry</a></li>
+              <li><a class="a-pill" href="#color">Color</a></li>
+            </ul>
+          </nav>
+          <div class="a-install">
+            <code
+              class="a-install-cmd"><span class="a-install-prompt" aria-hidden="true">$</span> npm i <%- PACKAGE %></code>
+            <button type="button" class="a-btn a-btn-accent" data-copy="npm i <%- PACKAGE %>"
+              aria-label="Copy install command">Copy</button>
+            <span class="a-visually-hidden" role="status" data-ref="status"></span>
+          </div>
+        </div>
+
+        <div class="a-hero-card" data-demo="hero" data-easing="easeOutBack" data-speed="1.6" role="img"
+          aria-label="A ball eased back and forth along the x axis of a coordinate grid by easeOutBack">
+          <div class="a-hero-card-panel">
+            <div class="a-hero-card-plot">
+              <!-- Paint order is the layering: grid, then ball, then axes and labels on top. -->
+              <div class="a-hero-card-grid">
+                <span></span><span>clamp</span><span></span><span></span><span>lerp</span><span></span><span></span>
+                <span></span><span></span><span></span><span>damp</span><span></span><span></span><span>polar</span>
+                <span>snap</span><span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span>mod</span><span></span><span></span><span>dot</span><span></span>
+                <span></span><span>near</span><span></span><span></span><span></span><span></span><span>ease</span>
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span class="a-hero-card-ball" data-ref="ball"></span>
+              <span class="a-hero-card-axis-y"><span class="a-ring a-ring-light"></span></span>
+              <span class="a-hero-card-axis-x"><span class="a-ring a-ring-light"></span></span>
+              <span class="a-hero-card-origin"></span>
+              <span class="a-hero-card-tick"></span>
+              <span class="a-hero-card-label a-hero-card-label-y">y</span>
+              <span class="a-hero-card-label a-hero-card-label-x">x</span>
+              <span class="a-hero-card-label a-hero-card-label-zero">0</span>
+              <span class="a-hero-card-label a-hero-card-label-one">1</span>
+              <p class="a-hero-card-caption">the arithmetic of motion<br>and measure</p>
+              <p class="a-hero-card-tag">TS · ESM · CJS</p>
+              <p class="a-hero-card-readout" data-ref="readout">easeOutBack(0.00) = 0.000</p>
+              <span class="a-hero-card-barcode"></span>
+            </div>
+          </div>
+          <span class="a-hero-card-corner"></span>
+        </div>
+      </section>
+
+      <!-- Imports -->
+      <section class="a-imports" aria-labelledby="imports-title">
+        <h2 class="a-visually-hidden" id="imports-title">Install and import</h2>
+        <div class="a-card-slate">
+          <p class="a-card-slate-head"><span>Root, one namespace per module</span><span class="a-card-slate-num">01</span></p>
+          <code class="a-card-slate-code">import { math, easing } from '@ashwinthomas/utils';</code>
+        </div>
+        <div class="a-card-slate">
+          <p class="a-card-slate-head"><span>Subpath, only what you need</span><span class="a-card-slate-num">02</span>
+          </p>
+          <code class="a-card-slate-code">import { lerp } from '@ashwinthomas/utils/math';</code>
+        </div>
+        <div class="a-card-slate">
+          <p class="a-card-slate-head"><span>CJS require</span><span class="a-card-slate-num">03</span></p>
+          <code class="a-card-slate-code">const { math } = require('@ashwinthomas/utils');</code>
+        </div>
+      </section>
+
+      <!-- Overview -->
+      <section class="a-notes" aria-labelledby="overview-title">
+        <h2 class="a-micro-label" id="overview-title">Overview</h2>
+        <p class="a-note"><strong class="a-note-mark">What it is -</strong> <%- PACKAGE %> collects the small
+          calculations that interface and graphics code keeps rewriting: keeping a value in range, mapping it from one
+          range to another, easing, smoothing, wrapping angles, working with 2D points and converting colors.
+          <%- FUNCTION_COUNT %> functions and a <code>Vector2</code> class, split into <%- MODULES.length %>
+          modules you can import separately.</p>
+        <p class="a-note"><strong class="a-note-mark">Who it's for -</strong> Front-end and creative developers
+          working on UI animation, scroll effects, canvas or WebGL sketches, small games and charts: anywhere a number
+          needs to be mapped, limited or smoothed from one frame to the next.</p>
+        <p class="a-note"><strong class="a-note-mark">Why it stays small -</strong> Each module can be imported on its
+          own, and importing the package doesn't run any code by itself, so your bundler keeps only the functions you
+          use. Types are included for ESM and CommonJS, with nothing extra to install.</p>
+      </section>
+
+      <!-- At a glance -->
+      <section class="a-glance" aria-labelledby="glance-title">
+        <h2 class="a-micro-label" id="glance-title">At a glance</h2>
+        <dl class="a-glance-list">
+          <div class="a-glance-item">
+            <dt>Functions</dt>
+            <dd><%- FUNCTION_COUNT %></dd>
+          </div>
+          <div class="a-glance-item">
+            <dt>Modules</dt>
+            <dd><%- MODULES.length %></dd>
+          </div>
+          <div class="a-glance-item">
+            <dt>Runtime dependencies</dt>
+            <dd>0</dd>
+          </div>
+          <div class="a-glance-item">
+            <dt>License</dt>
+            <dd>MIT</dd>
+          </div>
+          <div class="a-glance-item a-glance-item-wide">
+            <dt>Formats</dt>
+            <dd>ESM · CJS · .d.ts</dd>
+          </div>
+          <div class="a-glance-item">
+            <dt>Node.js</dt>
+            <dd><%- NODE_VERSION.replace('>=', '') %>+</dd>
+          </div>
+          <div class="a-glance-item">
+            <dt>Latest version</dt>
+            <dd><%- VERSION %></dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Conventions -->
+      <section class="a-notes a-notes-last" aria-labelledby="conventions-title">
+        <h2 class="a-micro-label" id="conventions-title">Conventions</h2>
+        <p class="a-note"><strong class="a-note-mark">A -</strong> Angles are in radians, except the inputs and
+          outputs of <code>degToRad</code>/<code>radToDeg</code> and color hue, which uses degrees like CSS.</p>
+        <p class="a-note"><strong class="a-note-mark">B -</strong> Easing functions take a progress value
+          <code>t</code> from 0 to 1, and return 0 at the start and 1 at the end.</p>
+        <p class="a-note"><strong class="a-note-mark">C -</strong> A 2D point or vector is a plain
+          <code>Vec2 = { x: number; y: number }</code> object. <code>Vector2</code> instances have the same shape, so
+          they work with every function.</p>
+        <p class="a-note"><strong class="a-note-mark">D -</strong> Functions never change their inputs and keep no
+          state between calls. The only exception is the unseeded random functions, which use
+          <code>Math.random</code>.</p>
+      </section>
+
+      <!-- Playground -->
+      <section id="play" aria-labelledby="play-title">
+        <div class="a-section-head">
+          <h2 class="a-display-h2" id="play-title">Play<wbr>ground</h2>
+          <p class="a-section-head-lede">Every number below is calculated live by the published package, the same code you
+          install from npm. Drag, click and slide to see how each function behaves, including at the edges.</p>
+        </div>
+
+        <!-- 01 math -->
+        <section id="math" class="a-module" aria-labelledby="math-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">01 / 08</p>
+            <h3 class="a-module-title" id="math-title">math</h3>
+            <p class="a-module-lead">Keep numbers in range, map them from one range to another, and round them.
+              <code>interpolate</code> maps a value from one range onto another. The input range can count up or down, but
+              it can't change direction partway; the output range can be any shape, like [0, 1, 0] to rise and fall
+              back.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> fading something in as the page scrolls, keeping a slider thumb inside its
+              track, snapping a dragged item to a grid, and comparing decimals that are almost but not exactly
+              equal.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>clamp(value, min, max)</code></dt>
+                <dd>Keeps a value between <code>min</code> and <code>max</code>.</dd>
+              </div>
+              <div>
+                <dt><code>lerp(start, end, t)</code></dt>
+                <dd>The value a fraction <code>t</code> of the way from start to end. <code>t</code> isn't limited to 0–1.</dd>
+              </div>
+              <div>
+                <dt><code>invlerp(start, end, value)</code></dt>
+                <dd>The reverse of <code>lerp</code>: how far <code>value</code> is between start and end. Returns 0 if start and end are the same.</dd>
+              </div>
+              <div>
+                <dt><code>interpolate(value, inputRange, outputRange, extrapolate)</code></dt>
+                <dd>Maps <code>value</code> from one range to another. <code>extrapolate</code> decides what happens outside the
+                  input range: <code>'extend'</code> (the default) keeps going, <code>'clamp'</code> stops at the ends and
+                  <code>'identity'</code> returns the value unchanged. Ranges of different lengths, or an input range that
+                  changes direction, throw a <code>RangeError</code>.</dd>
+              </div>
+              <div>
+                <dt><code>mod(n, d)</code> · <code>sign(n)</code></dt>
+                <dd>A remainder that takes the sign of <code>d</code>, so <code>mod(-1, 5)</code> is 4. <code>sign</code> returns −1, 0 or 1 (<code>NaN</code> for <code>NaN</code>).</dd>
+              </div>
+              <div>
+                <dt><code>roundTo(value, decimals)</code> · <code>snap(value, step)</code></dt>
+                <dd>Rounds to a number of decimal places without the usual floating-point slips (<code>1.005</code> rounds
+                  to 1.01). Negative decimals round to tens, hundreds and so on. <code>snap</code> rounds to the nearest
+                  multiple of <code>step</code>.</dd>
+              </div>
+              <div>
+                <dt><code>near(a, b, epsilon)</code></dt>
+                <dd>True when <code>a</code> and <code>b</code> are within <code>epsilon</code> of each other (default <code>1e-6</code>).</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-module-demos">
+            <div class="a-demo" data-demo="interpolate">
+              <div class="a-controls">
+                <div class="a-pill-group" role="group" aria-label="Input range direction" data-ref="dir">
+                  <button type="button" class="a-pill a-pill-sm" data-value="asc" aria-pressed="true">Ascending</button>
+                  <button type="button" class="a-pill a-pill-sm" data-value="desc"
+                    aria-pressed="false">Descending</button>
+                </div>
+                <span class="a-divider" aria-hidden="true"></span>
+                <div class="a-pill-group" role="group" aria-label="Output range shape" data-ref="shape">
+                  <button type="button" class="a-pill a-pill-sm" data-value="linear" aria-pressed="true">[0, 1]</button>
+                  <button type="button" class="a-pill a-pill-sm" data-value="peak" aria-pressed="false">[0, 1,
+                    0]</button>
+                </div>
+                <span class="a-divider" aria-hidden="true"></span>
+                <div class="a-pill-group" role="group" aria-label="Extrapolate mode" data-ref="ex">
+                  <button type="button" class="a-pill a-pill-sm" data-value="extend" aria-pressed="true">extend</button>
+                  <button type="button" class="a-pill a-pill-sm" data-value="clamp" aria-pressed="false">clamp</button>
+                  <button type="button" class="a-pill a-pill-sm" data-value="identity"
+                    aria-pressed="false">identity</button>
+                </div>
+              </div>
+              <svg class="a-plot" viewBox="0 0 320 160" role="img" aria-labelledby="iv-plot-title">
+                <title id="iv-plot-title">interpolate plotted for values from −50 to 150</title>
+                <rect class="a-plot-band" data-ref="band" x="90" y="10" width="140" height="140" />
+                <path class="a-plot-axis" data-ref="axes" d="M20 108H300M20 52H300" />
+                <path class="a-plot-line" data-ref="path" d="M20 136L300 24" />
+                <line class="a-plot-marker" data-ref="marker" x1="300" y1="10" x2="300" y2="150" />
+                <circle class="a-plot-dot" data-ref="dot" cx="300" cy="24" r="6" />
+              </svg>
+              <label class="a-field">
+                <span class="a-field-head"><span>value</span><span data-ref="value-out">150</span></span>
+                <input type="range" min="-50" max="150" step="1" value="150" data-ref="value">
+              </label>
+              <p class="a-code-bar"><code data-ref="code">interpolate(150, [0, 100], [0, 1], 'extend')</code> <span
+                  class="a-cm">// <span data-ref="result">1.5</span></span></p>
+            </div>
+
+            <div class="a-demo" data-demo="math-grid">
+              <label class="a-field">
+                <span class="a-field-head"><span>n</span><span data-ref="n-out">7.35</span></span>
+                <input type="range" min="-20" max="20" step="0.01" value="7.35" data-ref="n">
+              </label>
+              <ul class="a-tiles">
+                <li class="a-tile"><code class="a-tile-code">clamp(n, 0, 10)</code><span class="a-tile-out"
+                    data-fn="clamp">7.35</span></li>
+                <li class="a-tile"><code class="a-tile-code">snap(n, 2.5)</code><span class="a-tile-out"
+                    data-fn="snap">7.5</span></li>
+                <li class="a-tile"><code class="a-tile-code">roundTo(n, 1)</code><span class="a-tile-out"
+                    data-fn="roundTo1">7.4</span></li>
+                <li class="a-tile"><code class="a-tile-code">roundTo(n, -1)</code><span class="a-tile-out"
+                    data-fn="roundToNeg">10</span></li>
+                <li class="a-tile"><code class="a-tile-code">mod(n, 5)</code><span class="a-tile-out"
+                    data-fn="mod">2.35</span></li>
+                <li class="a-tile"><code class="a-tile-code">sign(n)</code><span class="a-tile-out"
+                    data-fn="sign">1</span></li>
+                <li class="a-tile"><code class="a-tile-code">invlerp(-20, 20, n)</code><span class="a-tile-out"
+                    data-fn="invlerp">0.684</span></li>
+                <li class="a-tile"><code class="a-tile-code">near(n, 0, 0.5)</code><span class="a-tile-out"
+                    data-fn="near">false</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 random -->
+        <section id="random" class="a-module" aria-labelledby="random-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">02 / 08</p>
+            <h3 class="a-module-title" id="random-title">random</h3>
+            <p class="a-module-lead"><code>range</code> gives a random number and <code>rangeFloor</code> a random whole number, from 0 to
+              1, 0 to <code>max</code>, or <code>min</code> to <code>max</code>. The upper limit is never returned. Both use
+              <code>Math.random</code>. <code>withSeed</code> gives you a generator that repeats the same sequence for the same
+              seed. Roll some samples and watch the bars even out; then type a seed and press Reset to get the exact
+              same counts again.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> jittering particles, picking a random array item with
+              <code>items[rangeFloor(items.length)]</code>, generative art you can recreate from a seed, and tests that need
+              the same "random" input on every run.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>range()</code> · <code>range(max)</code> · <code>range(min, max)</code></dt>
+                <dd>A random number from 0 up to 1, up to <code>max</code>, or from <code>min</code> up to <code>max</code>. The upper limit is never returned.</dd>
+              </div>
+              <div>
+                <dt><code>rangeFloor()</code> · <code>rangeFloor(max)</code> · <code>rangeFloor(min, max)</code></dt>
+                <dd>The same, but always a whole number.</dd>
+              </div>
+              <div>
+                <dt><code>withSeed(seed?)</code></dt>
+                <dd>A generator that repeats exactly for the same seed, with <code>value</code>, <code>range</code> and
+                  <code>rangeFloor</code>. The seed can be a number or a string. <code>rng.seed</code> holds the seed it used, so
+                  <code>withSeed(rng.seed)</code> plays the same sequence again.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-demo" data-demo="random">
+            <label class="a-field">
+              <span class="a-field-head"><span>seed</span><span>optional</span></span>
+              <input type="text" class="a-text-input" data-ref="seed" placeholder="e.g. my-sketch"
+                autocomplete="off" spellcheck="false">
+            </label>
+            <ol class="a-hist" data-ref="hist">
+              <li><span class="a-visually-hidden">Value 0: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 1: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 2: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 3: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 4: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 5: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 6: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 7: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 8: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+              <li><span class="a-visually-hidden">Value 9: </span><span class="a-hist-count">0</span><span
+                  class="a-hist-bar"></span></li>
+            </ol>
+            <div class="a-hist-labels" aria-hidden="true">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+            </div>
+            <div class="a-actions">
+              <button type="button" class="a-btn" data-roll="1">+1</button>
+              <button type="button" class="a-btn" data-roll="100">+100</button>
+              <button type="button" class="a-btn" data-roll="1000">+1000</button>
+              <button type="button" class="a-btn a-btn-end" data-ref="reset">Reset</button>
+            </div>
+            <p class="a-code-bar a-code-bar-stack" aria-live="polite">
+              <span>samples <span class="a-cm" data-ref="samples">0</span></span>
+              <span><code data-ref="source">Math.random</code> <span class="a-cm">// <span data-ref="seed-out">unseeded</span></span></span>
+              <span><code data-ref="range-call">range(-1, 1)</code> <span class="a-cm">// <span data-ref="last-range">-</span></span></span>
+              <span><code data-ref="die-call">rangeFloor(1, 7)</code> <span class="a-cm">// <span data-ref="last-die">-</span></span></span>
+            </p>
+          </div>
+        </section>
+
+        <!-- 03 motion -->
+        <section id="motion" class="a-module" aria-labelledby="motion-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">03 / 08</p>
+            <h3 class="a-module-title" id="motion-title">motion</h3>
+            <p class="a-module-lead"><code>damp</code> moves a value part of the way to its target each frame, adjusted for how much
+              time has passed. That keeps the motion the same at 30, 60 or 144 fps. Click the track to move the
+              target; a higher <code>lambda</code> gets there faster.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> a camera that follows a player, a cursor that trails the pointer, or any
+              value that should glide toward a moving target. <code>smoothstep</code> gives soft edges to fades, vignettes
+              and masks.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>damp(current, target, lambda, deltaTime)</code></dt>
+                <dd>Moves <code>current</code> toward <code>target</code> by an amount set by <code>lambda</code> and <code>deltaTime</code>, the time since the last frame.</dd>
+              </div>
+              <div>
+                <dt><code>smoothstep(edge0, edge1, x)</code></dt>
+                <dd>A smooth S-curve from 0 to 1 between the two edges: 0 before <code>edge0</code>, 1 after <code>edge1</code>.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-module-demos">
+            <div class="a-demo" data-demo="damp">
+              <div class="a-track a-track-damp">
+                <div class="a-track-area" data-ref="area" role="slider" tabindex="0" aria-label="damp target"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+                  <span class="a-track-target"></span>
+                  <span class="a-track-ball"></span>
+                </div>
+              </div>
+              <label class="a-field">
+                <span class="a-field-head"><span>lambda</span><span data-ref="lambda-out">8</span></span>
+                <input type="range" min="0.5" max="24" step="0.5" value="8" data-ref="lambda">
+              </label>
+              <p class="a-code-bar"><code data-ref="code">x = damp(x, 80, 8, dt)</code> <span class="a-cm">// <span
+                    data-ref="result">10</span></span></p>
+            </div>
+
+            <div class="a-demo" data-demo="smoothstep">
+              <svg class="a-plot" viewBox="0 0 240 140" role="img" aria-labelledby="ss-plot-title">
+                <title id="ss-plot-title">smoothstep curve between edge0 and edge1</title>
+                <path class="a-plot-axis" d="M20 20V120H220" />
+                <line class="a-plot-marker" data-ref="e0-line" x1="60" y1="12" x2="60" y2="128" />
+                <line class="a-plot-marker" data-ref="e1-line" x1="180" y1="12" x2="180" y2="128" />
+                <path class="a-plot-line" data-ref="path"
+                  d="M20 120L60 120L63.3 119.8L66.7 119.1L70 118L73.3 116.6L76.7 114.7L80 112.6L83.3 110.1L86.7 107.4L90 104.4L93.3 101.1L96.7 97.7L100 94.1L103.3 90.3L106.7 86.4L110 82.4L113.3 78.3L116.7 74.2L120 70L123.3 65.8L126.7 61.7L130 57.6L133.3 53.6L136.7 49.7L140 45.9L143.3 42.3L146.7 38.9L150 35.6L153.3 32.6L156.7 29.9L160 27.4L163.3 25.3L166.7 23.4L170 22L173.3 20.9L176.7 20.2L180 20L220 20" />
+              </svg>
+              <div class="a-field-row">
+                <label class="a-field">
+                  <span class="a-field-head"><span>edge0</span><span data-ref="e0-out">0.2</span></span>
+                  <input type="range" min="0" max="1" step="0.01" value="0.2" data-ref="e0">
+                </label>
+                <label class="a-field">
+                  <span class="a-field-head"><span>edge1</span><span data-ref="e1-out">0.8</span></span>
+                  <input type="range" min="0" max="1" step="0.01" value="0.8" data-ref="e1">
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 easing -->
+        <section id="easing" class="a-module" aria-labelledby="easing-title" data-demo="easing" data-speed="1.6">
+          <div class="a-module-meta">
+            <p class="a-module-index">04 / 08</p>
+            <h3 class="a-module-title" id="easing-title">easing</h3>
+            <p class="a-module-lead">Every easing function has the same shape: <code>type EasingFn = (t: number) =&gt; number</code>.
+              Pass in progress <code>t</code> from 0 to 1 and get back an eased value that starts at 0 and ends at 1. The
+              Expo versions land on exactly 0 and 1, and the Back versions overshoot a little (by the standard
+              1.70158) before settling.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> animations, progress bars and scroll effects: ease the progress first, then
+              pass it to <code>lerp</code> to get the actual value.</p>
+            <div class="a-pill-group" role="group" aria-label="Easing function" data-ref="pick">
+              <button type="button" class="a-pill a-pill-mono" data-value="linear" aria-pressed="false">linear</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeInCubic" aria-pressed="false">easeInCubic</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeOutCubic" aria-pressed="false">easeOutCubic</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeInOutCubic" aria-pressed="false">easeInOutCubic</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeInExpo" aria-pressed="false">easeInExpo</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeOutExpo" aria-pressed="false">easeOutExpo</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeInOutExpo" aria-pressed="false">easeInOutExpo</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeInBack" aria-pressed="false">easeInBack</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeOutBack" aria-pressed="true">easeOutBack</button>
+              <button type="button" class="a-pill a-pill-mono" data-value="easeInOutBack" aria-pressed="false">easeInOutBack</button>
+            </div>
+            <dl class="a-sig">
+              <div>
+                <dt>Cubic</dt>
+                <dd>Speeds up and slows down gently. <code>easeOutCubic</code> is a good default for interface motion.</dd>
+              </div>
+              <div>
+                <dt>Expo</dt>
+                <dd>Starts or stops sharply, then takes its time, landing exactly on 0 and 1.</dd>
+              </div>
+              <div>
+                <dt>Back</dt>
+                <dd>Pulls back or overshoots slightly before settling, for motion that feels playful and physical.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-demo">
+            <svg class="a-plot" viewBox="0 0 240 200" role="img" aria-labelledby="ease-plot-title">
+              <title id="ease-plot-title">Curve of the selected easing function</title>
+              <rect class="a-plot-grid" x="20" y="40" width="200" height="120" />
+              <path class="a-plot-grid" d="M20 100H220M70 40V160M120 40V160M170 40V160" />
+              <path class="a-plot-line a-plot-line-bold" data-ref="path"
+                d="M20 160L23.3 150.8L26.7 142L30 133.7L33.3 125.7L36.7 118.1L40 110.9L43.3 104.1L46.7 97.7L50 91.6L53.3 85.8L56.7 80.4L60 75.3L63.3 70.5L66.7 66.1L70 61.9L73.3 58L76.7 54.5L80 51.1L83.3 48.1L86.7 45.3L90 42.8L93.3 40.5L96.7 38.4L100 36.5L103.3 34.9L106.7 33.4L110 32.2L113.3 31.1L116.7 30.2L120 29.5L123.3 28.9L126.7 28.5L130 28.2L133.3 28L136.7 28L140 28.1L143.3 28.3L146.7 28.5L150 28.9L153.3 29.3L156.7 29.8L160 30.4L163.3 31L166.7 31.6L170 32.3L173.3 33L176.7 33.7L180 34.4L183.3 35.1L186.7 35.8L190 36.5L193.3 37.1L196.7 37.7L200 38.3L203.3 38.8L206.7 39.2L210 39.5L213.3 39.8L216.7 39.9L220 40" />
+              <circle class="a-plot-dot" data-ref="dot" cx="20" cy="160" r="6" />
+            </svg>
+            <div class="a-track a-track-ease" aria-hidden="true">
+              <div class="a-track-area" data-ref="area"><span class="a-track-block"></span></div>
+            </div>
+            <p class="a-code-bar"><code data-ref="code">easeOutBack(0.00)</code> <span class="a-cm">// <span
+                  data-ref="result">0.000</span></span></p>
+          </div>
+        </section>
+
+        <!-- 05 angle -->
+        <section id="angle" class="a-module" aria-labelledby="angle-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">05 / 08</p>
+            <h3 class="a-module-title" id="angle-title">angle</h3>
+            <p class="a-module-lead"><code>lerpAngle</code> blends between two angles the short way round. The dashed line is plain
+              <code>lerp</code>, which takes the long way when the angles sit on either side of ±180° (±π).</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> turning a sprite to face where it's heading, rotating dials and knobs, and
+              blending compass directions without a sudden spin the wrong way.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>degToRad(deg)</code> · <code>radToDeg(rad)</code></dt>
+                <dd>Convert between degrees and radians.</dd>
+              </div>
+              <div>
+                <dt><code>normalizeAngle(rad)</code></dt>
+                <dd>Wraps any angle into the range −π to π, so 3π becomes π.</dd>
+              </div>
+              <div>
+                <dt><code>lerpAngle(a, b, t)</code></dt>
+                <dd>Blends between two angles the shorter way round.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-demo" data-demo="angle">
+            <svg class="a-plot a-plot-dial" viewBox="0 0 220 220" role="img" aria-labelledby="ang-plot-title">
+              <title id="ang-plot-title">Angles a and b with lerpAngle and lerp results</title>
+              <circle class="a-plot-disc" cx="110" cy="110" r="80" />
+              <path class="a-plot-axis a-plot-axis-faint" d="M20 110H200M110 20V200" />
+              <line class="a-plot-ray" data-ref="ray-a" x1="110" y1="110" x2="31.22" y2="96.11" />
+              <line class="a-plot-ray" data-ref="ray-b" x1="110" y1="110" x2="40.72" y2="150" />
+              <line class="a-plot-ray a-plot-ray-dashed" data-ref="ray-n" x1="110" y1="110" x2="173.03" y2="98.89" />
+              <line class="a-plot-ray a-plot-ray-accent" data-ref="ray-l" x1="110" y1="110" x2="46.97" y2="121.11" />
+              <circle class="a-plot-dot" data-ref="dot-l" cx="46.97" cy="121.11" r="7" />
+              <text class="a-plot-label" data-ref="label-a" x="15.46" y="97.33">a</text>
+              <text class="a-plot-label" data-ref="label-b" x="26.86" y="162">b</text>
+              <circle class="a-plot-pivot" cx="110" cy="110" r="4" />
+            </svg>
+            <div class="a-field-row a-field-row-3">
+              <label class="a-field">
+                <span class="a-field-head"><span>a°</span><span data-ref="a-out">170</span></span>
+                <input type="range" min="-180" max="180" step="1" value="170" data-ref="a">
+              </label>
+              <label class="a-field">
+                <span class="a-field-head"><span>b°</span><span data-ref="b-out">-150</span></span>
+                <input type="range" min="-180" max="180" step="1" value="-150" data-ref="b">
+              </label>
+              <label class="a-field">
+                <span class="a-field-head"><span>t</span><span data-ref="t-out">0.5</span></span>
+                <input type="range" min="0" max="1" step="0.01" value="0.5" data-ref="t">
+              </label>
+            </div>
+            <p class="a-code-bar a-code-bar-stack">
+              <span><code>lerpAngle(a, b, t)</code> <span class="a-cm">// <span data-ref="out-l">3.316 rad ·
+                    -170°</span></span></span>
+              <span><code>lerp(a, b, t)</code> <span class="a-cm">// <span data-ref="out-n">0.175 rad ·
+                    10°</span></span></span>
+            </p>
+          </div>
+        </section>
+        <!-- 06 vector -->
+        <section id="vector" class="a-module" aria-labelledby="vector-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">06 / 08</p>
+            <h3 class="a-module-title" id="vector-title">vector</h3>
+            <p class="a-module-lead">A vector is an arrow with a direction and a length, stored as <code>{ x, y }</code>. Drag the
+              tips of a and b, or focus one and use the arrow keys. One grid square is one unit, and y counts upward,
+              like a graph on paper.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> moving things by a velocity, finding which way one object should travel to
+              reach another, and checking with <code>dot</code> whether two directions point the same way.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>add(a, b)</code> · <code>subtract(a, b)</code> · <code>scale(v, s)</code></dt>
+                <dd>Add or subtract two vectors, or stretch one by a number. Each returns a new vector and leaves the inputs alone.</dd>
+              </div>
+              <div>
+                <dt><code>magnitude(v)</code> · <code>normalize(v)</code></dt>
+                <dd>A vector's length, and the same direction shortened to length 1. A zero vector normalizes to <code>{ x: 0, y: 0 }</code>.</dd>
+              </div>
+              <div>
+                <dt><code>dot(a, b)</code> · <code>direction(from, to)</code></dt>
+                <dd><code>dot</code> is positive when two vectors point roughly the same way, 0 at a right angle and
+                  negative when they point apart. <code>direction</code> is the length-1 vector from one point to
+                  another.</dd>
+              </div>
+              <div>
+                <dt><code>new Vector2(x, y)</code> · <code>Vector2.from(v)</code> · <code>Vector2.fromAngle(angle, length)</code></dt>
+                <dd>A class version of the same math. Methods like <code>add</code>, <code>rotate</code>, <code>lerp</code> and
+                  <code>angleTo</code> can be chained, and each returns a new <code>Vector2</code>. Instances are valid
+                  <code>Vec2</code> objects, so you can pass them to any function.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-demo" data-demo="vector">
+            <svg class="a-pad" viewBox="0 0 400 260" data-ref="pad" aria-labelledby="vec2-pad-title vec2-pad-desc">
+              <title id="vec2-pad-title">Two vectors, a and b, drawn from the center, with their sum</title>
+              <desc id="vec2-pad-desc">Focus a or b and use the arrow keys to move its tip. Hold Shift for larger
+                steps.</desc>
+              <defs>
+                <marker id="vec-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6"
+                  orient="auto-start-reverse">
+                  <path class="a-vec-head" d="M0 0L10 5L0 10z" />
+                </marker>
+              </defs>
+              <path class="a-pad-grid" d="M0 10H400M0 50H400M0 90H400M0 170H400M0 210H400M0 250H400M40 0V260M80 0V260M120 0V260M160 0V260M240 0V260M280 0V260M320 0V260M360 0V260" />
+              <path class="a-vec-axis" d="M0 130H400M200 0V260" />
+              <circle class="a-vec-unit" cx="200" cy="130" r="40" />
+              <path class="a-vec-guide" data-ref="guide" d="M320 90L280 30M160 70L280 30" />
+              <line class="a-vec-sum" data-ref="sum" x1="200" y1="130" x2="280" y2="30" marker-end="url(#vec-head)" />
+              <text class="a-vec-label" data-ref="sum-label" x="280" y="18">a + b</text>
+              <line class="a-vec-arrow" data-ref="arrow-a" x1="200" y1="130" x2="320" y2="90" />
+              <line class="a-vec-arrow a-vec-arrow-accent" data-ref="arrow-b" x1="200" y1="130" x2="160" y2="70" />
+              <circle class="a-vec-unit-dot" data-ref="unit-dot" cx="237.95" cy="117.35" r="4" />
+              <g class="a-pad-point" data-point="a" tabindex="0" role="button" aria-label="Tip of vector a"
+                aria-roledescription="draggable point">
+                <circle cx="320" cy="90" r="11" /><text x="320" y="90" dy="3.5">a</text>
+              </g>
+              <g class="a-pad-point a-pad-point-accent" data-point="b" tabindex="0" role="button"
+                aria-label="Tip of vector b" aria-roledescription="draggable point">
+                <circle cx="160" cy="70" r="11" /><text x="160" y="70" dy="3.5">b</text>
+              </g>
+            </svg>
+            <ul class="a-code-bar a-code-bar-list">
+              <li><code>a, b</code> <span class="a-cm">// <span data-out="ab">{ x: 3, y: 1 }, { x: -1, y: 1.5 }</span></span></li>
+              <li><code>add(a, b)</code> <span class="a-cm">// <span data-out="add">{ x: 2, y: 2.5 }</span></span></li>
+              <li><code>subtract(a, b)</code> <span class="a-cm">// <span data-out="subtract">{ x: 4, y: -0.5 }</span></span></li>
+              <li><code>magnitude(a)</code> <span class="a-cm">// <span data-out="magnitude">3.16</span></span></li>
+              <li><code>normalize(a)</code> <span class="a-cm">// <span data-out="normalize">{ x: 0.95, y: 0.32 }</span></span></li>
+              <li><code>dot(a, b)</code> <span class="a-cm">// <span data-out="dot">-1.5 · pointing apart</span></span></li>
+              <li><code>Vector2.from(a).add(b).scale(0.5)</code> <span class="a-cm">// <span data-out="chain">{ x: 1, y: 1.25 }</span></span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 07 geometry -->
+        <section id="geometry" class="a-module" aria-labelledby="geometry-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">07 / 08</p>
+            <h3 class="a-module-title" id="geometry-title">geometry</h3>
+            <p class="a-module-lead">Drag the four points, or focus one and use the arrow keys. <code>intersection</code> finds where
+              the two segments cross and returns <code>null</code> when they don't, including when they're parallel.
+              Readouts count y upward, which is also the direction <code>rotatePoint</code> turns: counter-clockwise.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> checking whether two lines cross, laying items out in a circle with
+              <code>polar</code>, measuring distances, and rotating points around a pivot.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>distance(a, b)</code> · <code>angle(from, to)</code></dt>
+                <dd>The distance between two points, and the angle from one to the other, in radians.</dd>
+              </div>
+              <div>
+                <dt><code>rotatePoint(point, angle, origin)</code></dt>
+                <dd>Turns a point counter-clockwise around <code>origin</code>, which defaults to <code>{ x: 0, y: 0 }</code>.</dd>
+              </div>
+              <div>
+                <dt><code>polar(radius, angle, origin)</code></dt>
+                <dd>Turns a radius and an angle into an <code>{ x, y }</code> point, measured from <code>origin</code>.</dd>
+              </div>
+              <div>
+                <dt><code>intersection(a1, a2, b1, b2)</code></dt>
+                <dd>Where two line segments cross, or <code>null</code> if they don't.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-demo" data-demo="geometry">
+            <svg class="a-pad" viewBox="0 0 400 260" data-ref="pad" aria-labelledby="vec-pad-title vec-pad-desc">
+              <title id="vec-pad-title">Two draggable line segments, a and b</title>
+              <desc id="vec-pad-desc">Focus a point and use the arrow keys to move it. Hold Shift for larger steps.
+              </desc>
+              <path class="a-pad-grid"
+                d="M0 52H400M0 104H400M0 156H400M0 208H400M80 0V260M160 0V260M240 0V260M320 0V260" />
+              <line class="a-pad-seg" data-ref="seg-a" x1="50" y1="210" x2="340" y2="50" />
+              <line class="a-pad-seg a-pad-seg-accent" data-ref="seg-b" x1="70" y1="60" x2="330" y2="220" />
+              <line class="a-pad-normal" data-ref="normal" x1="195" y1="130" x2="183.41" y2="108.99" />
+              <circle class="a-pad-mid" data-ref="mid" cx="195" cy="130" r="4" />
+              <circle class="a-pad-ix" data-ref="ix" cx="189.07" cy="133.27" r="9" />
+              <g class="a-pad-point" data-point="a1" tabindex="0" role="button" aria-label="Point a1"
+                aria-roledescription="draggable point">
+                <circle cx="50" cy="210" r="11" /><text x="50" y="210" dy="3.5">a1</text>
+              </g>
+              <g class="a-pad-point" data-point="a2" tabindex="0" role="button" aria-label="Point a2"
+                aria-roledescription="draggable point">
+                <circle cx="340" cy="50" r="11" /><text x="340" y="50" dy="3.5">a2</text>
+              </g>
+              <g class="a-pad-point a-pad-point-accent" data-point="b1" tabindex="0" role="button" aria-label="Point b1"
+                aria-roledescription="draggable point">
+                <circle cx="70" cy="60" r="11" /><text x="70" y="60" dy="3.5">b1</text>
+              </g>
+              <g class="a-pad-point a-pad-point-accent" data-point="b2" tabindex="0" role="button" aria-label="Point b2"
+                aria-roledescription="draggable point">
+                <circle cx="330" cy="220" r="11" /><text x="330" y="220" dy="3.5">b2</text>
+              </g>
+            </svg>
+            <ul class="a-code-bar a-code-bar-list">
+              <li><code>distance(a1, a2)</code> <span class="a-cm">// <span data-out="distance">331.21</span></span>
+              </li>
+              <li><code>angle(a1, a2)</code> <span class="a-cm">// <span data-out="angle">0.504 rad</span></span></li>
+              <li><code>intersection(a1, a2, b1, b2)</code> <span class="a-cm">// <span data-out="intersection">{ x:
+                    189.07, y: 126.73 }</span></span></li>
+              <li><code>m = Vector2.from(a1).lerp(a2, 0.5)</code> <span class="a-cm">// <span data-out="mid">{ x: 195, y: 130
+                    }</span></span></li>
+              <li><code>polar(24, angle(a1, a2) + π / 2, m)</code> <span class="a-cm">// <span data-out="polar">{ x:
+                    183.41, y: 151.01 }</span></span></li>
+              <li><code>rotatePoint(b2, π / 2, b1)</code> <span class="a-cm">// <span data-out="rotate">{ x: 230, y: 460
+                    }</span></span></li>
+            </ul>
+          </div>
+        </section>
+
+
+        <!-- 07 color -->
+        <section id="color" class="a-module" aria-labelledby="color-title">
+          <div class="a-module-meta">
+            <p class="a-module-index">08 / 08</p>
+            <h3 class="a-module-title" id="color-title">color</h3>
+            <p class="a-module-lead">Convert colors between hex, RGB, HSL and HSV, mix them, lighten or darken them, and check
+              how readable text will be. RGB values go from 0 to 255, hue is in degrees, and everything else goes from
+              0 to 1. Transparency (alpha) is kept through every conversion. Pick two colors to see how they blend and
+              whether one is readable on the other.</p>
+            <p class="a-module-use"><span class="a-module-use-label">Use it for</span> building a range of shades from one brand color, animating from one color to
+              another with <code>mixColor</code>, and checking that text has enough contrast against its background.</p>
+            <dl class="a-sig">
+              <div>
+                <dt><code>hexToRgb(hex)</code> · <code>rgbToHex(rgb)</code></dt>
+                <dd>Reads <code>#rgb</code>, <code>#rgba</code>, <code>#rrggbb</code> and <code>#rrggbbaa</code> (the <code>#</code> is optional)
+                  and throws a <code>RangeError</code> for anything else. <code>rgbToHex</code> writes lowercase hex and only
+                  adds alpha when it's below 1.</dd>
+              </div>
+              <div>
+                <dt><code>rgbToHsl</code> · <code>hslToRgb</code> · <code>rgbToHsv</code> · <code>hsvToRgb</code></dt>
+                <dd>Convert RGB to HSL or HSV and back. Hue wraps around to stay between 0 and 360, and RGB results are whole numbers.</dd>
+              </div>
+              <div>
+                <dt><code>hexToHsl(hex)</code> · <code>hslToHex(hsl)</code></dt>
+                <dd>Shortcuts that go through RGB for you.</dd>
+              </div>
+              <div>
+                <dt><code>mixColor(a, b, t)</code></dt>
+                <dd>Blends <code>a</code> toward <code>b</code> by <code>t</code>, one channel at a time. If only one color has alpha, the other counts as fully opaque.</dd>
+              </div>
+              <div>
+                <dt><code>lighten(rgb, amount)</code> · <code>darken(rgb, amount)</code></dt>
+                <dd>Raise or lower lightness by <code>amount</code> (0 to 1), without going past white or black.</dd>
+              </div>
+              <div>
+                <dt><code>luminance(rgb)</code> · <code>contrastRatio(a, b)</code></dt>
+                <dd>How bright a color is, from 0 (black) to 1 (white), and how readable two colors are together, from 1 (no contrast) to 21 (black on white).</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="a-demo" data-demo="color">
+            <div class="a-field-row a-field-row-3">
+              <label class="a-field">
+                <span class="a-field-head"><span>a</span><span data-ref="a-out">#004fb8</span></span>
+                <input type="color" class="a-color-input" value="#004fb8" data-ref="a">
+              </label>
+              <label class="a-field">
+                <span class="a-field-head"><span>b</span><span data-ref="b-out">#ebeae6</span></span>
+                <input type="color" class="a-color-input" value="#ebeae6" data-ref="b">
+              </label>
+              <label class="a-field">
+                <span class="a-field-head"><span>t</span><span data-ref="t-out">0.5</span></span>
+                <input type="range" min="0" max="1" step="0.01" value="0.5" data-ref="t">
+              </label>
+            </div>
+            <svg class="a-plot" viewBox="0 0 400 172" role="img" aria-labelledby="color-plot-title">
+              <title id="color-plot-title">Color a as text on color b, the mix from a to b, and a lightness ramp of
+                a</title>
+              <defs>
+                <clipPath id="color-mix-clip"><rect x="166" y="18" width="234" height="52" rx="10" /></clipPath>
+                <clipPath id="color-ramp-clip"><rect x="166" y="102" width="234" height="52" rx="10" /></clipPath>
+              </defs>
+              <rect class="a-swatch-frame" data-ref="preview-bg" x="1" y="1" width="148" height="170" rx="14"
+                fill="#ebeae6" />
+              <text class="a-swatch-sample" data-ref="preview-fg" x="75" y="106" fill="#004fb8">Aa</text>
+              <text class="a-swatch-label" x="166" y="11">mixColor(a, b, t)</text>
+              <g clip-path="url(#color-mix-clip)">
+                <rect data-mix="0" x="166" y="18" width="26.5" height="52" fill="#004fb8" />
+                <rect data-mix="1" x="192" y="18" width="26.5" height="52" fill="#1d62be" />
+                <rect data-mix="2" x="218" y="18" width="26.5" height="52" fill="#3b76c4" />
+                <rect data-mix="3" x="244" y="18" width="26.5" height="52" fill="#5889c9" />
+                <rect data-mix="4" x="270" y="18" width="26.5" height="52" fill="#769dcf" />
+                <rect data-mix="5" x="296" y="18" width="26.5" height="52" fill="#93b0d5" />
+                <rect data-mix="6" x="322" y="18" width="26.5" height="52" fill="#b0c3db" />
+                <rect data-mix="7" x="348" y="18" width="26.5" height="52" fill="#ced7e0" />
+                <rect data-mix="8" x="374" y="18" width="26.5" height="52" fill="#ebeae6" />
+              </g>
+              <rect class="a-swatch-outline" data-ref="mix-strip" x="166" y="18" width="234" height="52" rx="10" />
+              <circle class="a-swatch-marker" data-ref="marker" cx="283" cy="44" r="13" fill="#769dcf" />
+              <text class="a-swatch-label" x="166" y="95">darken(a, .3) … lighten(a, .3)</text>
+              <g clip-path="url(#color-ramp-clip)">
+                <rect data-ramp="-0.3" x="166.00" y="102" width="33.93" height="52" fill="#000d1f" />
+                <rect data-ramp="-0.2" x="199.43" y="102" width="33.93" height="52" fill="#002352" />
+                <rect data-ramp="-0.1" x="232.86" y="102" width="33.93" height="52" fill="#003985" />
+                <rect data-ramp="0" x="266.29" y="102" width="33.93" height="52" fill="#004fb8" />
+                <rect data-ramp="0.1" x="299.71" y="102" width="33.93" height="52" fill="#0065eb" />
+                <rect data-ramp="0.2" x="333.14" y="102" width="33.93" height="52" fill="#1f7fff" />
+                <rect data-ramp="0.3" x="366.57" y="102" width="33.93" height="52" fill="#529cff" />
+              </g>
+              <rect class="a-swatch-outline" x="166" y="102" width="234" height="52" rx="10" />
+              <rect class="a-swatch-base" data-ref="ramp-base" x="266.29" y="102" width="33.43" height="52" />
+            </svg>
+            <ul class="a-code-bar a-code-bar-list">
+              <li><code>contrastRatio(a, b)</code> <span class="a-cm">// <span data-out="ratio">6.21:1 · AA pass · AA
+                    large pass · AAA fail</span></span></li>
+              <li><code>hexToRgb(a)</code> <span class="a-cm">// <span data-out="rgb">{ r: 0, g: 79, b: 184 }</span></span></li>
+              <li><code>rgbToHsl(a)</code> <span class="a-cm">// <span data-out="hsl">{ h: 214.2, s: 1, l: 0.36 }</span></span></li>
+              <li><code>rgbToHex(mixColor(a, b, t))</code> <span class="a-cm">// <span data-out="mix">#769dcf</span></span></li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- Recipes -->
+      <section id="recipes" class="a-recipes-block" aria-labelledby="recipes-title">
+        <div class="a-section-head">
+          <h2 class="a-display-h2" id="recipes-title">Recipes</h2>
+          <p class="a-section-head-lede">Six small patterns from the playground, ready to copy. Each imports from a subpath,
+            so only the functions it uses end up in your bundle.</p>
+        </div>
+        <div class="a-recipes">
+          <article class="a-card-slate">
+            <div class="a-card-slate-head">
+              <h3 class="a-card-slate-title">Scroll-linked fade</h3><span class="a-card-slate-num"
+                aria-hidden="true">01</span>
+            </div>
+            <p class="a-card-slate-note">Fade a hero out over the first 400px of scrolling. <code>'clamp'</code> stops the opacity going below 0 or above 1.</p>
+            <pre class="a-card-slate-code"><code>import { interpolate } from '@ashwinthomas/utils/math';
+
+const hero = document.querySelector('.hero');
+
+addEventListener('scroll', () =&gt; {
+  hero.style.opacity = interpolate(scrollY, [0, 400], [1, 0], 'clamp');
+}, { passive: true });</code></pre>
+          </article>
+          <article class="a-card-slate">
+            <div class="a-card-slate-head">
+              <h3 class="a-card-slate-title">Frame-rate independent follow</h3><span class="a-card-slate-num"
+                aria-hidden="true">02</span>
+            </div>
+            <p class="a-card-slate-note">A dot that follows the pointer smoothly, and moves the same on a 60 Hz laptop as on a 144 Hz monitor.</p>
+            <pre class="a-card-slate-code"><code>import { damp } from '@ashwinthomas/utils/motion';
+
+const dot = document.querySelector('.dot');
+let x = 0, target = 0, last = performance.now();
+addEventListener('pointermove', (e) =&gt; { target = e.clientX; });
+
+requestAnimationFrame(function frame(now) {
+  const dt = (now - last) / 1000;
+  last = now;
+  x = damp(x, target, 8, dt);
+  dot.style.translate = `${x}px 0`;
+  requestAnimationFrame(frame);
+});</code></pre>
+          </article>
+          <article class="a-card-slate">
+            <div class="a-card-slate-head">
+              <h3 class="a-card-slate-title">Eased tween</h3><span class="a-card-slate-num" aria-hidden="true">03</span>
+            </div>
+            <p class="a-card-slate-note">Turn elapsed time into progress from 0 to 1, ease it, then <code>lerp</code> from the start value to the end value.</p>
+            <pre class="a-card-slate-code"><code>import { clamp, lerp } from '@ashwinthomas/utils/math';
+import { easeOutCubic } from '@ashwinthomas/utils/easing';
+
+function tween(from, to, ms, onUpdate) {
+  const start = performance.now();
+  requestAnimationFrame(function step(now) {
+    const t = clamp((now - start) / ms, 0, 1);
+    onUpdate(lerp(from, to, easeOutCubic(t)));
+    if (t &lt; 1) requestAnimationFrame(step);
+  });
+}</code></pre>
+          </article>
+          <article class="a-card-slate">
+            <div class="a-card-slate-head">
+              <h3 class="a-card-slate-title">Snap a drag to a grid</h3><span class="a-card-slate-num"
+                aria-hidden="true">04</span>
+            </div>
+            <p class="a-card-slate-note">Round to the nearest 24px cell, then keep the result inside the canvas.</p>
+            <pre class="a-card-slate-code"><code>import { clamp, snap } from '@ashwinthomas/utils/math';
+
+const CELL = 24;
+
+function toGrid({ x, y }, width, height) {
+  return {
+    x: clamp(snap(x, CELL), 0, width),
+    y: clamp(snap(y, CELL), 0, height),
+  };
+}</code></pre>
+          </article>
+          <article class="a-card-slate">
+            <div class="a-card-slate-head">
+              <h3 class="a-card-slate-title">Readable text on any background</h3><span class="a-card-slate-num"
+                aria-hidden="true">05</span>
+            </div>
+            <p class="a-card-slate-note">Choose white or dark text, whichever is easier to read on the background color.</p>
+            <pre class="a-card-slate-code"><code>import { contrastRatio, hexToRgb } from '@ashwinthomas/utils/color';
+
+const WHITE = hexToRgb('#ffffff');
+const INK = hexToRgb('#121212');
+
+function textColorFor(background) {
+  const bg = hexToRgb(background);
+  return contrastRatio(bg, WHITE) &gt;= contrastRatio(bg, INK) ? '#ffffff' : '#121212';
+}
+
+textColorFor('#004fb8'); // '#ffffff' (7.47:1 vs 2.51:1)</code></pre>
+          </article>
+          <article class="a-card-slate">
+            <div class="a-card-slate-head">
+              <h3 class="a-card-slate-title">Reproducible generative layout</h3><span class="a-card-slate-num"
+                aria-hidden="true">06</span>
+            </div>
+            <p class="a-card-slate-note">The same seed gives the same layout every time, so a design you like can be saved as one short string.</p>
+            <pre class="a-card-slate-code"><code>import { withSeed } from '@ashwinthomas/utils/random';
+
+function scatter(seed, count, width, height) {
+  const rng = withSeed(seed);
+  return Array.from({ length: count }, () =&gt; ({
+    x: rng.range(width),
+    y: rng.range(height),
+    size: rng.rangeFloor(4, 12),
+  }));
+}
+
+scatter('poster-01', 40, 800, 600); // same 40 dots every run</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="a-faq" aria-labelledby="faq-title">
+        <div class="a-faq-meta">
+          <h2 class="a-display-h2" id="faq-title">Ques<wbr>tions</h2>
+          <p class="a-faq-lede">Short answers about installing and using the package, and about the ideas
+          behind it. Missing something? <a class="a-link" href="<%= REPO_URL %>/issues" rel="noopener">Open an issue on
+              GitHub</a>.</p>
+        </div>
+        <div class="a-faq-groups">
+          <% faq.forEach(function (group, g) { %>
+            <div class="a-faq-list">
+              <h3 class="a-micro-label a-faq-group"><%- group.group %></h3>
+              <% group.items.forEach(function (item, i) { %>
+                <details class="a-faq-item" <%=g===0 && i===0 ? ' open' : '' %>>
+                  <summary>
+                    <h4 class="a-faq-q"><%- item.q %></h4><span class="a-circle-arrow a-faq-icon"
+                      aria-hidden="true">+</span>
+                  </summary>
+                  <p class="a-faq-a">
+                    <%= item.a %>
+                  </p>
+                </details>
+                <% }); %>
+            </div>
+            <% }); %>
+        </div>
+      </section>
+
+      <footer class="a-footer">
+        <div class="a-footer-dev">
+          <h2 class="a-micro-label">Contributing</h2>
+          <p class="a-footer-note">To work on the library itself, clone the <a class="a-link" href="<%= REPO_URL %>"
+              rel="noopener">repo</a>, then:</p>
+          <pre class="a-footer-cmds"><code>npm run build      <span class="a-dim"># tsup → dist/</span>
+npm run dev        <span class="a-dim"># tsup --watch</span>
+npm test           <span class="a-dim"># vitest run</span>
+npm run test:watch <span class="a-dim"># vitest</span>
+npm run typecheck  <span class="a-dim"># tsc --noEmit</span></code></pre>
+          <p class="a-footer-note">Requires npm 11+ to install dev dependencies (npm 10.9 crashes resolving Vitest 4's
+            peer dependencies).</p>
+        </div>
+        <div class="a-footer-meta">
+          <dl class="a-footer-facts">
+            <div>
+              <dt>License</dt>
+              <dd>MIT</dd>
+            </div>
+            <div>
+              <dt>Version</dt>
+              <dd><%- VERSION %></dd>
+            </div>
+            <div>
+              <dt>Package</dt>
+              <dd><%- PACKAGE %></dd>
+            </div>
+          </dl>
+          <nav aria-label="Project links">
+            <ul class="a-pills a-pills-end">
+              <li><a class="a-pill" href="<%= NPM_URL %>" rel="noopener">npm &nbsp;<svg width="12" height="12"
+                    viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 16H27" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M18 7L27 16L18 25" stroke="black" stroke-width="3" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg></a></li>
+              <li><a class="a-pill" href="<%= REPO_URL %>" rel="noopener">GitHub &nbsp;<svg width="12" height="12"
+                    viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 16H27" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M18 7L27 16L18 25" stroke="black" stroke-width="3" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg></a></li>
+              <li><a class="a-pill" href="<%= REPO_URL %>/issues" rel="noopener">Issues &nbsp;<svg width="12" height="12"
+                    viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 16H27" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M18 7L27 16L18 25" stroke="black" stroke-width="3" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg></a></li>
+            </ul>
+          </nav>
+          <p class="a-footer-credit">Built and maintained by <a class="a-link" href="<%= AUTHOR_URL %>"
+              rel="author noopener"><%- meta.author %></a></p>
+        </div>
+      </footer>
+    </main>
+  </div>
+</body>
+
+</html>

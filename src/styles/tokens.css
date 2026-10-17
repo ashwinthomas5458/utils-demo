@@ -1,0 +1,71 @@
+/*
+ * Design tokens. Every color, font, size, radius and timing used by the page
+ * (including the SVG plots) reads from these properties, so overriding them
+ * on :root, or on any section, re-themes the page.
+ */
+:root {
+  /* Color */
+  --color-paper: #ebeae6;
+  --color-ink: #121212;
+  --color-accent: #004FB8;
+  --color-accent-contrast: #fff;
+  --color-slate: #aab2bf;
+  --color-on-slate: #fff;
+  --color-mustard: #e3bd2d;
+  --color-card: #f6f5f2;
+  --color-code-bg: var(--color-ink);
+  --color-code-fg: var(--color-paper);
+  --color-code-comment: var(--color-mustard);
+  --color-muted: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  --color-rule: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  --color-focus: var(--color-accent);
+
+  /* Type */
+  --font-sans: Outfit, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-display: clamp(56px, 6.2vw, 132px);
+  --fs-h2: clamp(56px, 7vw, 104px);
+  --fs-h3: clamp(44px, 5vw, 56px);
+  --fs-lead: 15px;
+  --fs-body: 14px;
+  --fs-small: 12.5px;
+  --fs-micro: 12px;
+  --fs-code: 13px;
+  --fs-tile: 20px;
+  --lh-tight: 0.88;
+  --lh-body: 1.4;
+  --tracking-display: -0.045em;
+  --tracking-h3: -0.04em;
+  --tracking-micro: 0.02em;
+  --tracking-pill: 0.04em;
+
+  /* Shape */
+  --border-w: 1.5px;
+  --radius-pill: 999px;
+  --radius-sidebar: 32px;
+  --radius-hero: 40px;
+  --radius-card: 28px;
+  --radius-panel: 24px;
+  --radius-plot: 18px;
+  --radius-code: 14px;
+  --radius-tile: 14px;
+
+  /* Space & layout */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --shell-pad: 16px;
+  --shell-max: 1280px;
+  --sidebar-w: 64px;
+  --section-pad-top: 40px;
+  --section-pad-bottom: 56px;
+
+  /* Motion */
+  --ease-ui: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-ui: 0.2s;
+}
